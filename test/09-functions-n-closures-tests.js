@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 
 var assert = require('assert');
 var tasks = require('../task/09-functions-n-closures-tasks');

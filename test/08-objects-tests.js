@@ -76,11 +76,12 @@ describe('08-objects-tasks', function() {
         };
 
         [
+          //  {
+          //      proto: tasks.Rectangle.prototype,
+          //      json: '{ "width":10, "height":20 }',
+          //      expected: new tasks.Rectangle(10, 20)
+          //  },
             {
-                proto: tasks.Rectangle.prototype,
-                json: '{ "width":10, "height":20 }',
-                expected: new tasks.Rectangle(10, 20)
-            },{
                 proto: MockType.prototype,
                 json: '{ "a":10, "b":20, "c":30 }',
                 expected: new MockType(10,20,30)
@@ -231,7 +232,7 @@ describe('08-objects-tasks', function() {
             assert.throws(
                 fn,
                 /Element, id and pseudo-element should not occur more then one time inside the selector/,
-                
+
                 '\nPlease throw an exception "Element, id and pseudo-element should not occur more then one time inside the selector" '+
                 'if element, id or pseudo-element occurs twice or more times'
             );
@@ -259,7 +260,7 @@ describe('08-objects-tasks', function() {
             assert.throws(
                 fn,
                 /Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element/,
-                
+
                 '\nPlease throw an exception "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element" '+
                 'if selector parts arranged in an invalid order.'
             );

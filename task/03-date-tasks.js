@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,9 +56,9 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   if (!(date.getFullYear() % 4 == 0)) {return false;} else if (!(date.getFullYear() % 100 == 0)) {
+     return true;} else if (!(date.getFullYear() % 400 == 0)) {return false} else {return true};
 }
-
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -76,14 +76,22 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+  let hours = Math.floor((endDate - startDate) / 3600000);
+  let min = Math.floor((endDate - startDate - hours*3600000) / 60000);
+  let sec = Math.floor((endDate - startDate - hours*3600000 - min*60000) / 1000);
+  let milsec = Math.floor(endDate - startDate - hours*3600000 - min*60000 - sec*1000);
+  hours = (hours < 10) ? '0'+hours : hours;
+  min = (min < 10) ? '0'+min : min;
+  sec = (sec < 10) ? '0'+sec : sec;
+  if (milsec < 10) {milsec = '00'+milsec} else if (milsec < 100) {milsec = '0'+milsec};
+  return `${hours}:${min}:${sec}.${milsec}`;
 }
 
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
- * 
+ *
  * @param {date} date
  * @return {number}
  *
@@ -94,7 +102,12 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    let hours = date.getUTCHours();
+    let min = date.getUTCMinutes();
+    hours = (hours > 12) ? hours % 12 : hours;
+    let angle = Math.abs((60*hours+min)/2-6*min);
+    angle = (angle > 180) ? angle-180 : angle;
+    return angle*Math.PI/180;
 }
 
 
